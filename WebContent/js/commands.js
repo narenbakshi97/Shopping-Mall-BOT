@@ -69,9 +69,18 @@ artyom.addCommands([
 	            		show_list();
 	            		contextVar = "changeQty";
 	            	}
+	            },{
+	            	indexes: ["offers in *"],
+	            	smart:true,
+	            	action:function(i,wildcard,sentence){
+	            		write(sentence);
+	            		contextVar = "offer";
+	            		wildcard = check_substitute(wildcard);
+	            		ajaxjax(wildcard,contextVar,null);
+	            	}
 	            },
 	            {
-	            	indexes:["what is the amount"],
+	            	indexes:["what is the amount","whats the amount"],
 	            	action:function(){
 	            		write("What is the Amount");
 	            		total_amount = calculate_amount();
@@ -151,7 +160,7 @@ artyom.addCommands([
 	            				    data: {json:json,type:"confirm","customer":name,"tokenId":token},
 	            				    success:function(data){
 	            				        artyom.say("hello!");
-	            				    }
+	            				    }	
 	            				});
 	            				shoppinglist = [];
 	            				bill = [];

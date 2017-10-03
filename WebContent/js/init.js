@@ -1,12 +1,12 @@
 function analyze(){
 		artyom.fatality();
-		artyom.initialize({
-	        lang:"en-US", // Start recognizing
-	        debug:false, // Show everything in the console
-	        speed:1 // talk normally
-	    	}).then(function(){
-	        	console.log("Ready to speak !");
-	    	});
+//		artyom.initialize({
+//	        lang:"hi-IN", // Start recognizing
+//	        debug:false, // Show everything in the console
+//	        speed:1 // talk normally
+//	    	}).then(function(){
+//	        	console.log("Ready to speak !");
+//	    	});
 		document.getElementById("mike").style.color = "#333";
 	}
 	
@@ -15,11 +15,19 @@ function analyze(){
 	var d = setInterval(function(){
 		if(artyom.isSpeaking()){
 	    	speak = true;
-		}else{
+		}
+		else{
 			speak = false;
+//			artyom.initialize({
+//   		        lang:"hi-IN", // Start recognizing
+//   		        debug:false, // Show everything in the console
+//   		        speed:1 // talk normally
+//   		    	}).then(function(){
+//   		        	console.log("Ready to speak !");
+//   		    	});
 		}
 	},200);
-
+	
 
 		function proceed()
 		{
@@ -36,14 +44,4 @@ function analyze(){
 	            	console.log("Ready to work !");
 	        	});
 	    	},250);
-
-
-
-		}
-		
-		
-		
-		function hasGetUserMedia() {
-			  return !!(navigator.getUserMedia || navigator.webkitGetUserMedia ||
-			            navigator.mozGetUserMedia || navigator.msGetUserMedia);
-			}
+	}

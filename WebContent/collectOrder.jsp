@@ -4,23 +4,51 @@
 <!DOCTYPE html>
 <html>
 <head>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Collect Order</title>
+<style>
+	body
+	{
+		background-image: url('images/mall.jpg');
+		background-repeat: no-repeat;
+		background-attachment:fixed;
+		background-size: cover;
+		color: white;
+	}
+	ul{
+		list-style-type: none;
+	}
+	main{
+		background:rgba(0,0,0,0.7);
+		margin:10px 10% ;
+		padding:5% 10%;
+	}
+	a{
+		color:white;
+		font-size:20px;
+	}
+</style>
 </head>
-<body>
+<body class="container-fluid">
+<main>
 	<%
 	String name = request.getParameter("oby_name");
 	String token = request.getParameter("name_token");
 	String order_id = request.getParameter("o_id");
 	String sid = request.getParameter("sid");
 	%>
-	<h1>Order List for <% out.println(name); %></h1>
-	<ul>
-		<li>Name:<% out.println(name); %></li>
-		<li>Id number/Token:<% out.println(token); %></li>
-		<li>Order Id:<% out.println(order_id); %></li>
+	<h1 class="text-center">Order List for <% out.println(name); %></h1>
+	<ul class="row">
+		<li class="col-md-4">Name:<% out.println(name); %></li>
+		<li class="col-md-4">Id number/Token:<% out.println(token); %></li>
+		<li class="col-md-4">Order Id:<% out.println(order_id); %></li>
 	</ul>
-	<table border="1">
+	<table class="table table-responsive">
 	<tr>
 		<th>Brand</th>
 		<th>Product</th>
@@ -73,18 +101,24 @@
 		<%
 		}
 		%>
-		<tr><td>Total: <% out.println(amount); %></td></tr>
+		<tr><td colspan="8">Total: <% out.println(amount); %></td></tr>
 	</table>
-	<form method="post" action="staff.jsp">
+	<div class="row">
+		<div class="col-md-12">
+			<hr>
+		</div>
+	</div>
+	<form class="form" method="post" action="staff.jsp">
 		<input type="hidden" name="o_name" value="<% out.println(name); %>"/>
 		<input type="hidden" name="amount" value="<% out.println(amount); %>"/>
 		<div class="form-group">
-			<span>On which counter number?</span>
+			<label class="label-control">On which counter number?</label>
 			<input type="hidden" name="staff_id" value="<% out.println(sid); %>"/>
 			<input type="hidden" name="order_id" value="<% out.println(order_id); %>"/>
-			<input type="text" name="counter_numetr"/>
+			<input class="form-control" type="text" name="counter_numetr" required placeholder="example A"/>
 		</div>
-		<button type="submit" name="notify">Notify <% out.println(name); %> for collection</button>
+		<button class="form-control btn btn-primary" type="submit" name="notify">Notify <% out.println(name); %> for collection</button>
 	</form>
+	</main>
 </body>
 </html>

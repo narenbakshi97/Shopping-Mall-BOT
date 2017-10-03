@@ -8,18 +8,44 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Admin Page</title>
+<style>
+	body
+	{
+		background-image: url('images/mall.jpg');
+		background-repeat: no-repeat;
+		background-attachment:fixed;
+		background-size: cover;
+		color: white;
+	}
+	ul{
+		list-style-type: none;
+	}
+	main{
+		background:rgba(0,0,0,0.7);
+	}
+	a{
+		color:white;
+		font-size:20px;
+	}
+</style>
 </head>
-<body>
-	<main>
-		<h1>Welcome Admin</h1>
-		<ul>
-			<li><a href="index.jsp">Log Out</a></li>
-			<li><a href="insert.jsp">Insert item</a></li>
-			<li><a href="staffManage.jsp">Manage Staff</a></li>
+<body class="container-fluid">
+	<main class="row">
+		<h1 class="text-center">Welcome Admin</h1>
+		<ul class="col-md-12">
+			<li class="text-center col-md-4"><a href="index.jsp">Log Out</a></li>
+			<li class="text-center col-md-4"><a href="insert.jsp">Insert item</a></li>
+			<li class="text-center col-md-4"><a href="staffManage.jsp">Manage Staff</a></li>
 		</ul>
 		
-		<table border="1">
+		<table class="table table-responsive"  border="1">
 			<tr>
 				<td>Index</td>
 				<td>Brand</td>
@@ -61,7 +87,7 @@
 			   				<td><% out.println(rs.getString("wreck_floor")); %></td>
 			   				<td><% out.println(rs.getString("product")); %></td>
 			   				<td><img style='max-width:50px;max-height:50px;' src="<% out.println(rs.getString("image")); %>.png" class="img-responsive"/></td>
-			   				<td><form action="adminProcess" method="post"><input type="hidden" name="idEdit" value="<% out.println(rs.getInt("id"));%>"/><input type="submit" value="Edit"/></form><form method="post" action="adminProcess"><input type="hidden" name="idDelete" value="<% out.println(rs.getInt("id"));%>"/><input type="submit" value="Delete"/></form></td>
+			   				<td><form action="adminProcess" method="post"><input type="hidden" name="idEdit" value="<% out.println(rs.getInt("id"));%>"/><input class="btn btn-success" type="submit" value="Edit"/></form><form method="post" action="adminProcess"><input type="hidden" name="idDelete" value="<% out.println(rs.getInt("id"));%>"/><input class="btn btn-danger" type="submit" value="Delete"/></form></td>
 			   			</tr>
 			   <%
 			       }

@@ -12,15 +12,17 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
+<title>Customer Home Page</title>
 	<style>
 
 	.robot{
 		border:2px solid #059;
+		background:white;
 	}
 
 	.user{
 		border:2px solid #095;
+		background:white;
 	}
 
 	.chat{
@@ -28,7 +30,30 @@
 		border-radius:10px;
 	}
 		
+		
+	body
+	{
+		background-image: url('images/mall.jpg');
+		background-repeat: no-repeat;
+		background-attachment:fixed;
+		background-size: cover;
+		color: white;
+	}
+	ul{
+		list-style-type: none;
+	}
+	main{
+		background:rgba(0,0,0,0.7);
+		margin:10px 10% ;
+		padding:5% 10%;
+	}
+	a{
+		color:white;
+		font-size:20px;
+	}
 		</style>
+		
+	
 </head>
 <body class="container-fluid" onload="myFunction()">
 		<div>
@@ -70,7 +95,7 @@
 	var name = "<%=myVar%>";
 	var token = "<%=token%>";
 	artyom.initialize({
-        lang:"en-US", // Start recognizing
+        lang:"hi-IN", // Start recognizing
         debug:false, // Show everything in the console
         speed:1 // talk normally
     	}).then(function(){
@@ -81,21 +106,19 @@
 	window.onload = function(){
     	var say = false;
         // Add the error listeners
+        
         artyom.when("ERROR",function(err){
             console.error("An error ocurred : ", err.code);
         });        console.log("Artyom is ready");
         var message = "Hello "+name+"! I am Shoppy, Your personal shopping assistant. How can I help you?";
-        //artyom.say(message);
-        //artyom.say("To see the commands scroll down, the question and answer history will be stored only for your reference purpose. After you sign out it will be deleted.");
-        setTimeout(function(){ history_string("<table><tr><th>Commands</th></tr><tr><td><b>Where can i find *item:</b> <small>shows you location</small></td></tr><tr><td><b>Make a list:</b> <small>Guides you to use list</small></td></tr><tr><td><b>Add *item:</b> <small>Adds *item</small></td></tr><tr><td><b>Remove *item:</b> <small>removes *item</small></td></tr><tr><td><b>number *</b><small>To choose an item from the index</small></td></tr><tr><td><b>quantity *</b><small>To give the quantity of the item</small></td></tr><tr><td><b>change quantity</b><small>Changes quantity of an existing item in list (used along with number command for item selection)</small></td></tr><tr><td><b>yes/no</b><small>For decession making purpose</small></td></tr><tr><td><b>show list:</b> <small>prints list</small></td></tr><tr><td><b>Confirm list:</b> <small>will send it to a staff member for billing</small></td></tr><tr><td><b>What is the amount:</b> <small>Displays amount</small></td></tr><tr><td><b>Delete list:</b> <small>deletes shopping list</small></td></tr></table>");},1000);		
+        artyom.say(message);
+        artyom.say("To see the commands scroll down, the question and answer history will be stored only for your reference purpose. After you sign out it will be deleted.");
+        setTimeout(function(){ history_string("<table><tr><th>Commands</th></tr><tr><td><b>Where can i find *item:</b> <small>shows you location</small></td></tr><tr><td><b>Make a list:</b> <small>Guides you to use list</small></td></tr><tr><td><b>Add *item:</b> <small>Adds *item</small></td></tr><tr><td><b>Remove *item:</b> <small>removes *item</small></td></tr><tr><td><b>number *</b><small>To choose an item from the index</small></td></tr><tr><td><b>quantity *</b><small>To give the quantity of the item</small></td></tr><tr><td><b>change quantity</b><small>Changes quantity of an existing item in list (used along with number command for item selection)</small></td></tr><tr><td><b>yes/no</b><small>For decession making purpose</small></td></tr><tr><td><b>show list:</b> <small>prints list</small></td></tr><tr><td><b>Confirm list:</b> <small>will send it to a staff member for billing</small></td></tr><tr><td><b>What is the amount:</b> <small>Displays amount</small></td></tr><tr><td><b>Offers in *item:</b><small>Shows you offers on the item if there are any</small></td></tr><tr><td><b>Delete list:</b> <small>deletes shopping list</small></td></tr></table>");},1000);		
 		artyom.say("Here is what all I can do");
 	}
 	
-	
-	//function say(){
-	//	artyom.say("aeyyy!! why are u! maaree bou badhaa kaam hoy!");	
-	//}
 	function checkingMessage(){
+		console.log("checking messages");
 		<%
 			Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/shoppingmall","root","root");
 			Statement st = conn.createStatement();
@@ -104,7 +127,7 @@
 			while(rs.next()){
 				String message = rs.getString("message");
 				%>
-				console.log("inside message checkig");
+				console.log("inside message checking");
 				var message = <%=message%>
 				if(message != null){
 					artyom.say(message);
@@ -114,7 +137,7 @@
 		%>
 	}
 	
-	window.setInterval(checkingMessage,500);
+	//window.setInterval(checkingMessage,500);
 	
 	</script>
 	<script src="js/commands.js"></script>
