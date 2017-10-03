@@ -16,18 +16,17 @@
 	<style>
 
 	.robot{
-		border:2px solid #059;
-		background:white;
+		border:2px solid #905;
 	}
 
 	.user{
 		border:2px solid #095;
-		background:white;
 	}
 
 	.chat{
 		padding: 5px;
 		border-radius:10px;
+		background-color:rgba(0,0,0,0.45);
 	}
 		
 		
@@ -51,13 +50,23 @@
 		color:white;
 		font-size:20px;
 	}
+	.bg-black{
+		background-color:rgb(0,0,0);
+	}
+	.bg-transparent{
+		background-color:rgba(0,0,0,0.4);
+		
+	}
+	text-white{
+		color:#fff;
+	}
 		</style>
 		
 	
 </head>
 <body class="container-fluid" onload="myFunction()">
 		<div>
-		<section id="header" class="navbar bg-primary navbar-fixed-top">
+		<section id="header" class="navbar bg-black navbar-fixed-top">
 			<h3>Shopping Mall BOT</h3>
 		</section>
 		<br><br><br>
@@ -77,9 +86,9 @@
 		<br><br><br>
 		</div>
 		
-		<section style="padding:10px;" id="footer" class="col-md-12 navbar bg-danger navbar-fixed-bottom">
+		<section style="padding:10px;" id="footer" class="col-md-12 navbar bg-transparent navbar-fixed-bottom">
 			<input readonly style="background:transparent;border:white solid;height:35px;font-size:25px;font-family:verdana;" class="col-lg-11 col-md-11 col-xs-10" type="search" id="search"/>
-			<i id="mike" onmousedown="proceed()" onmouseup="analyze()" class="col-lg-1 col-md-1 col-xs-2 fa fa-microphone fa-3x"></i>
+			<i style="color:white;" id="mike" onmousedown="proceed()" onmouseup="analyze()" class="col-lg-1 col-md-1 col-xs-2 fa fa-microphone fa-3x"></i>
 		</section>
 
 	</body>

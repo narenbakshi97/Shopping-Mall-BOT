@@ -1,13 +1,13 @@
 function analyze(){
 		artyom.fatality();
-//		artyom.initialize({
-//	        lang:"hi-IN", // Start recognizing
-//	        debug:false, // Show everything in the console
-//	        speed:1 // talk normally
-//	    	}).then(function(){
-//	        	console.log("Ready to speak !");
-//	    	});
-		document.getElementById("mike").style.color = "#333";
+		artyom.initialize({
+	        lang:"hi-IN", // Start recognizing
+	        debug:false, // Show everything in the console
+	        speed:1 // talk normally
+	    	}).then(function(){
+	        	console.log("Ready to speak !");
+	    	});
+		document.getElementById("mike").style.color = "#fff";
 	}
 	
 	var speak = false;
