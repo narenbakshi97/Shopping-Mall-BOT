@@ -57,7 +57,7 @@ artyom.addCommands([
 	            			
 	            			write(sentence);
 	            			
-	            			console.log("\n\n"+a+"\n\n");
+	            			//console.log("\n\n"+a+"\n\n");
 	            			
 	            		}
 	            },
@@ -140,8 +140,8 @@ artyom.addCommands([
 	            		}
 	            		else if (contextVar == "confirm"){
 	            			if(i == 0){
-	            				console.log("name:"+name+" and token:"+token);
-	            				console.log("shopping list: " + shoppinglist);
+	            				//console.log("name:"+name+" and token:"+token);
+	            				//console.log("shopping list: " + shoppinglist);
 	            				artyom.say("Okay, list is sent to the staff member! Once it is done I will notify you, until then explore our clothing section area");
 	            				
 	            				for(var i = 0; i < shoppinglist.length; i++){
@@ -149,7 +149,7 @@ artyom.addCommands([
 	            					bill.push(shoppinglist[i][5]);
 	            				}
 	            				var json = bill.join(',');
-	            				console.log(json);
+	            				//console.log(json);
 	            				
 	            				
 	            				
@@ -181,6 +181,7 @@ artyom.addCommands([
 	            			contextVar = "add";
 	            			wildcard = check_substitute(wildcard);
 	            			write(sentence);
+	            			checkList();
 	            			ajaxjax(wildcard,contextVar,null);
 	            		}
 	            },
@@ -202,7 +203,7 @@ artyom.addCommands([
 	            	indexes:["make a list"],
 	            	action:function(){
 	            			write("Make a list");
-	            			console.log("\n\n"+shoppinglist.length+"\n\n");
+	            			//console.log("\n\n"+shoppinglist.length+"\n\n");
 	            			if(shoppinglist.length <= 0){
 	            				artyom.say("Okay! I am ready with my pen and paper. To add an item use add itemname command, to remove use remove index number of the item command. To coplete shopping use command confirm list.");
 	            			}
@@ -238,6 +239,24 @@ artyom.addCommands([
             				show_list();
             			}
 	            	}
+	            },
+	            {
+	            	indexes:["logout","log out"],
+	            	action: function(){
+	            		$.ajax({
+	            			url: 'login',
+	            			data: {name: "logout", token: token},
+	            			dataType: "text",
+	            			type: 'POST',
+	            			error: function(){
+	            				artyom.say("Error occured in logout procedure");
+	            			},
+	            			success: function(){
+	            				artyom.say("Thankyou "+name+", visit again!");
+	    	            		window.open('index.jsp','_self');
+	            			}
+	            		});
+	            	}
 	            }]);
 
 function ajaxjax(item,type,quantity){
@@ -250,7 +269,7 @@ function ajaxjax(item,type,quantity){
 
 	
 	$.getJSON('Process',dataToBeSent, function(responseText) {
-		console.log(shoppinglist);
+		//console.log(shoppinglist);
 		artyom.say(responseText[0]+".");
 		history_string(responseText[0]);
     	ans_str = responseText[1];
@@ -268,7 +287,7 @@ function ajaxjax(item,type,quantity){
         	if(contextVar == "addById"){
         		artyom.say("how much quantity?");
         		lastFound = ans_str;
-        		console.log(lastFound);
+        		//console.log(lastFound);
         	}
 		}
 		else if(contextVar == "quantityAdd"){
@@ -321,7 +340,7 @@ function check_substitute(wildcard){
 
 function calculate_amount(){
 	total_amount = 0;
-	console.log("Amount: "+total_amount);
+	//console.log("Amount: "+total_amount);
 	for(var e = 0; e < price.length; e++){
 		total_amount += price[e];
 	}

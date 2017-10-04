@@ -1,12 +1,5 @@
 function analyze(){
 		artyom.fatality();
-		artyom.initialize({
-	        lang:"hi-IN", // Start recognizing
-	        debug:false, // Show everything in the console
-	        speed:1 // talk normally
-	    	}).then(function(){
-	        	console.log("Ready to speak !");
-	    	});
 		document.getElementById("mike").style.color = "#fff";
 	}
 	
@@ -18,13 +11,6 @@ function analyze(){
 		}
 		else{
 			speak = false;
-//			artyom.initialize({
-//   		        lang:"hi-IN", // Start recognizing
-//   		        debug:false, // Show everything in the console
-//   		        speed:1 // talk normally
-//   		    	}).then(function(){
-//   		        	console.log("Ready to speak !");
-//   		    	});
 		}
 	},200);
 	

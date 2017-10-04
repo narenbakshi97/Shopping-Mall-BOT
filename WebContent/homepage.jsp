@@ -64,7 +64,7 @@
 		
 	
 </head>
-<body class="container-fluid" onload="myFunction()">
+<body class="container-fluid">
 		<div>
 		<section id="header" class="navbar bg-black navbar-fixed-top">
 			<h3>Shopping Mall BOT</h3>
@@ -101,24 +101,38 @@
 	<script src="js/init.js"></script>
 	<script src="js/functionality.js"></script>
 	<script>
+	var notify, msg_check;
 	var name = "<%=myVar%>";
 	var token = "<%=token%>";
-	artyom.initialize({
-        lang:"hi-IN", // Start recognizing
-        debug:false, // Show everything in the console
-        speed:1 // talk normally
-    	}).then(function(){
-        	console.log("Ready to speak !");
-    	});
+	var CustomerData = {
+			name: name,
+			token: token
+	};
 	
+	
+	function checkList(){
+		console.log("inside check list");
+		if(shoppinglist.length == 0){
+			checkingMessage();
+		}
+	}
 	
 	window.onload = function(){
+		msg_check = setInterval(checkList,500);
+		artyom.initialize({
+	        lang:"en-US", // Start recognizing
+	        debug:false, // Show everything in the console
+	        speed:1 // talk normally
+	    	}).then(function(){
+	        	console.log("Ready to speak !");
+	    	});
     	var say = false;
         // Add the error listeners
         
         artyom.when("ERROR",function(err){
             console.error("An error ocurred : ", err.code);
-        });        console.log("Artyom is ready");
+        });        
+        console.log("Artyom is ready");
         var message = "Hello "+name+"! I am Shoppy, Your personal shopping assistant. How can I help you?";
         artyom.say(message);
         artyom.say("To see the commands scroll down, the question and answer history will be stored only for your reference purpose. After you sign out it will be deleted.");
@@ -127,26 +141,23 @@
 	}
 	
 	function checkingMessage(){
-		console.log("checking messages");
-		<%
-			Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/shoppingmall","root","root");
-			Statement st = conn.createStatement();
-			String q = "SELECT message FROM orders WHERE id = "+token;
-			ResultSet rs = st.executeQuery(q);
-			while(rs.next()){
-				String message = rs.getString("message");
-				%>
-				console.log("inside message checking");
-				var message = <%=message%>
-				if(message != null){
-					artyom.say(message);
-				}
-		<%
-			}
-		%>
+		console.log("Inside ajax call");
+		$.ajax({
+			   url: 'CheckMessages',
+			   data: CustomerData,
+			   error: function() {
+			      artyom.say("Error occured!");
+			   },
+			   dataType: 'text',
+			   success: function(data) {
+			      if(data != ""){
+					   artyom.say(data);
+					   window.clearInterval(msg_check);
+					}
+			     },
+			   type: 'POST'
+			});
 	}
-	
-	//window.setInterval(checkingMessage,500);
 	
 	</script>
 	<script src="js/commands.js"></script>

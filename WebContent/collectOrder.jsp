@@ -41,6 +41,7 @@
 	String token = request.getParameter("name_token");
 	String order_id = request.getParameter("o_id");
 	String sid = request.getParameter("sid");
+	String staff_name = request.getParameter("staff_name");
 	%>
 	<h1 class="text-center">Order List for <% out.println(name); %></h1>
 	<ul class="row">
@@ -108,14 +109,15 @@
 			<hr>
 		</div>
 	</div>
-	<form class="form" method="post" action="staff.jsp">
+	<form class="form" method="post" action="OrderReady">
 		<input type="hidden" name="o_name" value="<% out.println(name); %>"/>
 		<input type="hidden" name="amount" value="<% out.println(amount); %>"/>
 		<div class="form-group">
 			<label class="label-control">On which counter number?</label>
+			<input type="hidden" name="staff_name" value="<% out.println(staff_name); %>"/>
 			<input type="hidden" name="staff_id" value="<% out.println(sid); %>"/>
 			<input type="hidden" name="order_id" value="<% out.println(order_id); %>"/>
-			<input class="form-control" type="text" name="counter_numetr" required placeholder="example A"/>
+			<input class="form-control" type="text" name="counter_number" required placeholder="example A"/>
 		</div>
 		<button class="form-control btn btn-primary" type="submit" name="notify">Notify <% out.println(name); %> for collection</button>
 	</form>

@@ -56,7 +56,7 @@
 			</div>
 			<div class="text-left form-group">
 			<label class="h4 label-control">Enter the token number</label>
-			<input class="form-control" required type="text" placeholder="Enter your token number" name="token"/>
+			<input class="form-control" required type="number" placeholder="Enter your token number" name="token"/>
 			</div>
 			<span>
 				<input class="btn btn-default btn-black" type="submit" value="Login" />

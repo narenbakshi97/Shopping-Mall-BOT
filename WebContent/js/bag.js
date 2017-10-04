@@ -102,7 +102,7 @@ function redraw() {
   }
   else
   {
-	console.log("speaking... " + i)	;
+	//console.log("speaking... " + i)	;
 	context.drawImage(images["smile"+(i%4 + 1)], -120, 0,w/1.2,h/1.2);
 	doAdelay();
 	i++;
@@ -111,5 +111,5 @@ function redraw() {
 
 function doAdelay()
 {
-	setTimeout(function(){console.log("hey! waiting!!");return true;},1000);
+	setTimeout(function(){/*console.log("hey! waiting!!");*/return true;},1000);
 }
