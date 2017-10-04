@@ -1,9 +1,9 @@
 var item;
 var price = [];
 var total_amount = 0;
-var lastFound = [], lastId;
+var lastFound = [], lastId, offerId;
 var lastQty = 0;
-var shoppinglist = [];
+var shoppinglist = [], offer = [];
 var contextVar = "normal";
 var ans_str = "";
 var tmp;
@@ -53,6 +53,12 @@ artyom.addCommands([
 	            				arr_tmp = wildcard-1;
 	            				contextVar  = "quantityChange";
 	            				artyom.say("Ok index number " + wildcard + " choosed, now used quantity command");
+	            			}
+	            			else if(contextVar == "offer"){
+	            				contextVar = "offerAdd";
+	            				a = parseInt($('.'+wildcard).last().text());
+	            				offerId = a;
+	            				ajaxjax(a,contextVar,null);
 	            			}
 	            			
 	            			write(sentence);
@@ -276,7 +282,7 @@ function ajaxjax(item,type,quantity){
 		if(contextVar == "find" || contextVar == "findById" || contextVar == "add" || contextVar == "addById"){
         	if(ans_str != ""){
         		setTimeout(function(){
-    				list_str = "<table><tr><th>Index</th><th>Image</th><th>Brand</th><th>Name</th><th>Weight</th><th>Price in rupees</th></tr>";
+    				list_str = "<table class='table table-responsive'><tr><th>Index</th><th>Image</th><th>Brand</th><th>Name</th><th>Weight</th><th>Price in rupees</th></tr>";
     				for(var e = 0; e < ans_str.length; e++){
     					list_str += "<tr><td class='hidden "+ans_str[e].index+"'>"+ans_str[e].id+"</td><td>"+ans_str[e].index+"</td><td><img class='img-responsive' style='max-width:150px;max-height:150px;' src='"+ans_str[e].image+"'></td><td>"+ans_str[e].brand+"</td><td>"+ans_str[e].name+"</td><td>"+ans_str[e].weight+"</td><td>"+ans_str[e].price+".00/-</td></tr>";
     				}
@@ -296,11 +302,34 @@ function ajaxjax(item,type,quantity){
 					shopping_item(lastFound[0].id,lastFound[0].image,lastFound[0].index,lastFound[0].name,lastFound[0].weight,quant,parseInt(lastFound[0].price),lastFound[0].quantity);
 				}
 		}
+		else if(contextVar == "offer"){
+			if(responseText[0].indexOf( "Sorry but could not find any offer") < 0){
+				setTimeout(function(){
+    				list_str = "<table class='table table-responsive'><tr><th>Index</th><th>Offers</th><th>Name</th><th>Price</th></tr>";
+    				for(var e = 0; e < responseText[1].length; e++){
+    					var sources = "";
+    					for(var img = 0; img < ans_str[e].images.length; img++){
+    						if(img > 0){
+    						sources += "<span style='font-size:35px;'>+</span>";
+    						}
+    						sources += "<img style='max-width:150px;max-height:150px;' class='img-responsive' src='"+ans_str[e].images[img]+"'/>";
+    					}	
+    					list_str += "<tr><td class='hidden "+(e+1)+"'>"+ans_str[e].id+"</td><td>"+(e+1)+"</td><td>"+sources+"</td><td>"+ans_str[e].text+"</td><td>"+ans_str[e].price+".00/-</td></tr>";
+    				}
+    				list_str += "</table>";
+    				history_list(list_str);
+    			},500);
+				artyom.say("Use number command to select the product");
+				contextVar = "offer";
+			}
+		}
 	})	
 	
 }
 
-
+function offer_item(index,id,images,text,price){
+	offer.push([index,id,images,text,price]);
+}
 
 function shopping_item(id,image,index,name,weight,quantity,price,quantity_avail){
 	shoppinglist.push([id,image,index,name,weight,quantity,price,quantity_avail]);
@@ -308,8 +337,21 @@ function shopping_item(id,image,index,name,weight,quantity,price,quantity_avail)
 
 function show_list(){
 	setTimeout(function(){
-		list_str = "<table><tr><th>Index</th><th>Image</th><th>Name</th><th>Weight</th><th>Quantity</th><th>Price in rupees</th></tr>";
+		list_str = "<table class='table table-responsive'><tr><th>Index</th><th>Image</th><th>Name</th><th>Weight</th><th>Quantity</th><th>Price in rupees</th></tr>";
 		for(var e = 0; e < shoppinglist.length; e++){
+			price[e] = shoppinglist[e][5]*shoppinglist[e][6];
+			list_str += "<tr><td class='hidden "+shoppinglist[e][2]+"'>"+shoppinglist[e][0]+"</td><td>"+(e+1)+"</td><td><img src='"+shoppinglist[e][1]+"' class='img-responsive' style='max-width:50px;max-height:50px;'></td><td>"+shoppinglist[e][3]+"</td><td>"+shoppinglist[e][4]+"</td><td>x"+shoppinglist[e][5]+"</td><td>"+shoppinglist[e][6]+".00/- x"+shoppinglist[e][5]+" = "+price[e]+"</td></tr>";
+		}
+		list_str += "<tr><td>Total</td><td colspan='4' style='text-align:right;'>"+calculate_amount();+"/-</td></tr>";
+		list_str += "</table>";
+		history_list(list_str);
+	},500);
+}
+
+function show_offer_list(){
+	setTimeout(function(){
+		list_str = "<table class='table table-responsive'><tr><th>Index</th><th>Offers</th><th>Name</th><th>Price</th></tr>";
+		for(var e = 0; e < offer.length; e++){
 			price[e] = shoppinglist[e][5]*shoppinglist[e][6];
 			list_str += "<tr><td class='hidden "+shoppinglist[e][2]+"'>"+shoppinglist[e][0]+"</td><td>"+(e+1)+"</td><td><img src='"+shoppinglist[e][1]+"' class='img-responsive' style='max-width:50px;max-height:50px;'></td><td>"+shoppinglist[e][3]+"</td><td>"+shoppinglist[e][4]+"</td><td>x"+shoppinglist[e][5]+"</td><td>"+shoppinglist[e][6]+".00/- x"+shoppinglist[e][5]+" = "+price[e]+"</td></tr>";
 		}
