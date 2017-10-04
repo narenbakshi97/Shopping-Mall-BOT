@@ -134,10 +134,10 @@
         });        
         console.log("Artyom is ready");
         var message = "Hello "+name+"! I am Shoppy, Your personal shopping assistant. How can I help you?";
-        artyom.say(message);
-        artyom.say("To see the commands scroll down, the question and answer history will be stored only for your reference purpose. After you sign out it will be deleted.");
+        //artyom.say(message);
+        //artyom.say("To see the commands scroll down, the question and answer history will be stored only for your reference purpose. After you sign out it will be deleted.");
         setTimeout(function(){ history_string("<table><tr><th>Commands</th></tr><tr><td><b>Where can i find *item:</b> <small>shows you location</small></td></tr><tr><td><b>Make a list:</b> <small>Guides you to use list</small></td></tr><tr><td><b>Add *item:</b> <small>Adds *item</small></td></tr><tr><td><b>Remove *item:</b> <small>removes *item</small></td></tr><tr><td><b>number *</b><small>To choose an item from the index</small></td></tr><tr><td><b>quantity *</b><small>To give the quantity of the item</small></td></tr><tr><td><b>change quantity</b><small>Changes quantity of an existing item in list (used along with number command for item selection)</small></td></tr><tr><td><b>yes/no</b><small>For decession making purpose</small></td></tr><tr><td><b>show list:</b> <small>prints list</small></td></tr><tr><td><b>Confirm list:</b> <small>will send it to a staff member for billing</small></td></tr><tr><td><b>What is the amount:</b> <small>Displays amount</small></td></tr><tr><td><b>Offers in *item:</b><small>Shows you offers on the item if there are any</small></td></tr><tr><td><b>Delete list:</b> <small>deletes shopping list</small></td></tr></table>");},1000);		
-		artyom.say("Here is what all I can do");
+		//artyom.say("Here is what all I can do");
 	}
 	
 	function checkingMessage(){

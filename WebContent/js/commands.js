@@ -1,4 +1,5 @@
 var item;
+var row;
 var price = [];
 var total_amount = 0;
 var lastFound = [], lastId, offerId;
@@ -56,12 +57,12 @@ artyom.addCommands([
 	            			}
 	            			else if(contextVar == "offer"){
 	            				contextVar = "offerAdd";
-	            				a = parseInt($('.'+wildcard).last().text());
-	            				offerId = a;
-	            				ajaxjax(a,contextVar,null);
+	            				console.log("inside number-offer command");
+	            				var row = $('.'+wildcard).last();
+	            				console.log(row);
+	            				artyom.say("Okay, how much quantity?");
 	            			}
 	            			
-	            			write(sentence);
 	            			
 	            			//console.log("\n\n"+a+"\n\n");
 	            			
@@ -89,7 +90,7 @@ artyom.addCommands([
 	            	indexes:["what is the amount","whats the amount"],
 	            	action:function(){
 	            		write("What is the Amount");
-	            		total_amount = calculate_amount();
+	            		total_amount = calculate_amount()+calculate_offer();
 	            		artyom.say("The total is rupees " + total_amount);
 	            		history_string("The total is rupees " + total_amount);
 	            	}
@@ -108,6 +109,26 @@ artyom.addCommands([
 	            			}
 	            			else{
 	            				artyom.say("Quantity cannot bec changed, as it acceds the available amount.");
+	            			}
+	            		}
+	            		else if(contextVar == "offerAdd"){
+	            			var mqa = $(row).find("#offer_m_q_a").html();
+	            			if(wildcard <= mqa){
+		            			var index = $(row).find("#offer_index").html();
+	            				var id = $(row).find("#offer_index").html();
+	            				var images = $(row).find("#offer_images").html();
+	            				var price = $(row).find("#offer_price").html();
+	            				var text = $(row).find("#offer_text").html();
+	            				
+	            				console.log("row:"+row+",index:"+index+",id:"+id+",images:"+images+",price:"+price+",text:"+text);
+	            				
+	            				write(sentence);
+	            				offer_item(index,id,images,text,price,mqa,wildcard);
+	            				artyom.say("Okay, offer added to list");	            			
+		            			show_offer_list();
+	            			}
+	            			else{
+	            				artyom.say("Sorry but the amount acceds the valid quantity for the offer");
 	            			}
 	            		}
 	            		else{
@@ -137,6 +158,7 @@ artyom.addCommands([
 	            		if(i == 0 && contextVar == "delete"){
 	            			write("Yes");
 	            			shoppinglist = [];
+	            			offer = [];
 	            			artyom.say("Okay deleted!");
 
 	            		}
@@ -228,6 +250,7 @@ artyom.addCommands([
 	            			else{
 	            				artyom.say("Here is the list");
 	            				show_list();
+	            				show_offer_list();
 	            			}
 	            		}
 	            		
@@ -243,6 +266,7 @@ artyom.addCommands([
             				artyom.say("Are you sure you want to confirm the list? here is the list, use yes or no command");
             				contextVar = "confirm";
             				show_list();
+            				show_offer_list();
             			}
 	            	}
 	            },
@@ -305,7 +329,7 @@ function ajaxjax(item,type,quantity){
 		else if(contextVar == "offer"){
 			if(responseText[0].indexOf( "Sorry but could not find any offer") < 0){
 				setTimeout(function(){
-    				list_str = "<table class='table table-responsive'><tr><th>Index</th><th>Offers</th><th>Name</th><th>Price</th></tr>";
+    				list_str = "<table class='table table-responsive'><tr><th>Index</th><th>Offer ID</th><th>Offers</th><th>Name</th><th>Price</th></tr>";
     				for(var e = 0; e < responseText[1].length; e++){
     					var sources = "";
     					for(var img = 0; img < ans_str[e].images.length; img++){
@@ -314,7 +338,7 @@ function ajaxjax(item,type,quantity){
     						}
     						sources += "<img style='max-width:150px;max-height:150px;' class='img-responsive' src='"+ans_str[e].images[img]+"'/>";
     					}	
-    					list_str += "<tr><td class='hidden "+(e+1)+"'>"+ans_str[e].id+"</td><td>"+(e+1)+"</td><td>"+sources+"</td><td>"+ans_str[e].text+"</td><td>"+ans_str[e].price+".00/-</td></tr>";
+    					list_str += "<tr class='"+(e+1)+"'><td id='offer_index'>"+(e+1)+"</td><td id='offer_id'>"+ans_str[e].id+"</td><td id='offer_images'>"+sources+"</td><td id='offer_text'>"+ans_str[e].text+"</td><td id='offer_price'>"+ans_str[e].price+".00/-</td><td class='hidden' id='offer_m_q_a'>"+ans_str[e].m_q_a+"</td></tr>";
     				}
     				list_str += "</table>";
     				history_list(list_str);
@@ -327,8 +351,8 @@ function ajaxjax(item,type,quantity){
 	
 }
 
-function offer_item(index,id,images,text,price){
-	offer.push([index,id,images,text,price]);
+function offer_item(index,id,images,text,price,max_q_a,quantity){
+	offer.push([index,id,images,text,price,max_q_a,quantity]);
 }
 
 function shopping_item(id,image,index,name,weight,quantity,price,quantity_avail){
@@ -350,12 +374,12 @@ function show_list(){
 
 function show_offer_list(){
 	setTimeout(function(){
-		list_str = "<table class='table table-responsive'><tr><th>Index</th><th>Offers</th><th>Name</th><th>Price</th></tr>";
+		list_str = "<table class='table table-responsive'><tr><th>Index</th><th>Ofeer Id</th><th>Offers</th><th>Name</th><th>Price</th></tr>";
 		for(var e = 0; e < offer.length; e++){
-			price[e] = shoppinglist[e][5]*shoppinglist[e][6];
-			list_str += "<tr><td class='hidden "+shoppinglist[e][2]+"'>"+shoppinglist[e][0]+"</td><td>"+(e+1)+"</td><td><img src='"+shoppinglist[e][1]+"' class='img-responsive' style='max-width:50px;max-height:50px;'></td><td>"+shoppinglist[e][3]+"</td><td>"+shoppinglist[e][4]+"</td><td>x"+shoppinglist[e][5]+"</td><td>"+shoppinglist[e][6]+".00/- x"+shoppinglist[e][5]+" = "+price[e]+"</td></tr>";
+			// offer_item(index,id,images,text,price);
+			list_str += "<tr><td class='"+offer[e][0]+"'>"+offer[e][0]+"</td><td>"+offer[e][1]+"</td><td>"+offer[e][2]+"</td><td>"+offer[e][3]+"</td><td>"+offer[e][4]+"x"+offer_q+"</td></tr>";
 		}
-		list_str += "<tr><td>Total</td><td colspan='4' style='text-align:right;'>"+calculate_amount();+"/-</td></tr>";
+		list_str += "<tr><td>Total</td><td colspan='4' style='text-align:right;'>"+calculate_offer();+"/-</td></tr>";
 		list_str += "</table>";
 		history_list(list_str);
 	},500);
@@ -387,6 +411,14 @@ function calculate_amount(){
 		total_amount += price[e];
 	}
 	return total_amount;
+}
+
+function calculate_offer(){
+	var amt = 0;
+	for(var e = 0; e < offer.length; e++){
+		amt += offer[e][4];
+	}
+	return amt;
 }
 
 function myFunction(){
