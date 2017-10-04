@@ -1,10 +1,10 @@
 
 var images = {};
-
-loadImage("bag");
+var random_no = Math.floor(Math.random() * 11) + 1;
+loadImage("bag"+random_no);
 loadImage("eyebrows1");
 loadImage("eyebrows2");
-loadImage("eyes-close");
+loadImage("eyes-close"+random_no);
 loadImage("eyes-open");
 loadImage("smile1");
 loadImage("smile2");
@@ -78,7 +78,7 @@ function redraw() {
 
   canvas.width = canvas.width; // clears the canvas 
                       
-  context.drawImage(images["bag"], -100, 0,w/1.2,h/1.2);
+  context.drawImage(images["bag"+random_no], -100, 0,w/1.2,h/1.2);
 
   if (changeEyebrows == false)
   {
@@ -94,7 +94,7 @@ function redraw() {
   }
   else
   {
-  	context.drawImage(images["eyes-close"], -110, 0,w/1.2,h/1.2);
+  	context.drawImage(images["eyes-close"+random_no], -110, 0,w/1.2,h/1.2);
   }
   if(speak == false)
   {
