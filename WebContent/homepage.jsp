@@ -120,7 +120,7 @@
 	window.onload = function(){
 		msg_check = setInterval(checkList,15000);
 		artyom.initialize({
-	        lang:"en-US", // Start recognizing
+	        lang:"hi-IN", // Start recognizing
 	        debug:false, // Show everything in the console
 	        speed:1 // talk normally
 	    	}).then(function(){

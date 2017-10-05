@@ -1,6 +1,6 @@
 
 var images = {};
-var random_no = Math.floor(Math.random() * 11) + 1;
+var random_no = Math.floor(Math.random() * 6) + 1;
 loadImage("bag"+random_no);
 loadImage("eyebrows1");
 loadImage("eyebrows2");
