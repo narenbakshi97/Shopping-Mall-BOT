@@ -258,7 +258,7 @@ artyom.addCommands([
 	            },{
 	            	indexes:["how are you made?","describe about yourself","tell about this project","tell us about yourself"],
 	            	action:function(){
-	            		artyom.say("I am made from 75 point 9% Javascript and 24 point 1% Java, thats what my github repository says. I am listening your commands and talking with you through a javascript library called artyom dot js. It works on google's speech synthesis API. My front end part is made of simple JSP, bootstrap and javascript and my backend part is made from Java technologies like java servlets, JDBC and mysql, the server connections are made through AJAX technology. My creators are Naren Bakshi and Siddharth Paliwal, Students from Computer Engineering department and it is made under the guidence of Professor Shivangi Surti, Ldrp-Itr.");
+	            		artyom.say("I am made from 76 point 1% Javascript and 23 point 9% Java, thats what my github repository says. I am listening your commands and talking with you through a javascript library called artyom dot js. It works on google's speech synthesis API. My front end part is made of simple JSP, bootstrap and javascript and my backend part is made from Java technologies like java servlets, JDBC and mysql, the server connections are made through AJAX technology. My creators are Naren Bakshi and Siddharth Paliwal, Students from Computer Engineering department and it is made under the guidence of Professor Shivangi Surti, Ldrp-Itr.");
 	            	}
 	            },
 	            {
