@@ -40,6 +40,7 @@
 	}
 	ul{
 		list-style-type: none;
+		align-text:left;
 	}
 	main{
 		background:rgba(0,0,0,0.7);
