@@ -40,9 +40,10 @@
 	<main class="row">
 		<h1 class="text-center">Welcome Admin</h1>
 		<ul class="col-md-12">
-			<li class="text-center col-md-4"><a href="index.jsp">Log Out</a></li>
-			<li class="text-center col-md-4"><a href="insert.jsp">Insert item</a></li>
-			<li class="text-center col-md-4"><a href="staffManage.jsp">Manage Staff</a></li>
+			<li class="text-center col-md-3"><a href="index.jsp">Log Out</a></li>
+			<li class="text-center col-md-3"><a href="insert.jsp">Insert item</a></li>
+			<li class="text-center col-md-3"><a href="staffManage.jsp">Manage Staff</a></li>
+			<li class="text-center col-md-3"><a href="offerManage.jsp">Manage Offers</a></li>
 		</ul>
 		
 		<table class="table table-responsive"  border="1">
