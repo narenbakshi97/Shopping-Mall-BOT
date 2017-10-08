@@ -27,6 +27,7 @@ artyom.addCommands([
 	            	action:function(i,wildcard,sentence){
 	            			var a = 0;
 	            			wildcard = parseInt(check_substitute(wildcard));
+	            			write(sentence);
 	            			if(contextVar == "find"){
 	            				contextVar = "findById";
 	            				a = parseInt($('.'+wildcard).last().text());
@@ -89,7 +90,7 @@ artyom.addCommands([
 	            {
 	            	indexes:["what is the amount","whats the amount"],
 	            	action:function(){
-	            		write("What is the Amount");
+	            		write("What is the amount?");
 	            		total_amount = calculate_amount()+calculate_offer();
 	            		artyom.say("The total is rupees " + total_amount);
 	            		history_string("The total is rupees " + total_amount);
@@ -137,6 +138,7 @@ artyom.addCommands([
 	            			a = parseInt(wildcard);
 	            			lastQty = a;
 	            			ajaxjax(lastId,contextVar,wildcard);
+	            			
 	            		}
 	            	}
 	            },
@@ -258,6 +260,7 @@ artyom.addCommands([
 	            },{
 	            	indexes:["how are you made?","describe about yourself","tell about this project","tell us about yourself"],
 	            	action:function(){
+	            		write("Describe the project");
 	            		artyom.say("I am made from 76 point 1% Javascript and 23 point 9% Java thats what my github repository page says. I am listening your commands and talking with you through a javascript library called artyom dot js. It works on google's speech synthesis A P I, My front end part is made of simple JSP bootstrap and javascript and my backend part is made from Java technologies like java servlets JDBC and mysql the server connections are made through AJAX technology. My creators are Naren Bakshi and Siddharth Paliwal Students from Computer Engineering department, This project is made under the guidence of Professor Shivangi Surati, Ldrp I T R.");
 	            	}
 	            },
@@ -279,6 +282,7 @@ artyom.addCommands([
 	            {
 	            	indexes:["logout","log out"],
 	            	action: function(){
+	            		write("Log Out");
 	            		$.ajax({
 	            			url: 'login',
 	            			data: {name: "logout", token: token},
