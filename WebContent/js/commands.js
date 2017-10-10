@@ -42,10 +42,12 @@ artyom.addCommands([
 	            			else if(contextVar == "remove"){
 	            				if(wildcard == NaN){
 	            					artyom.say("Given input is not number");
+	            					history_string("Given input is not number.");
 	            				}
 	            				var to_remove = parseInt(wildcard)-1;
 	            				shoppinglist.splice(to_remove,1);
 	            				artyom.say("Item removed successfully!");
+	            				history_string("Item removed successfully.");
 	            				total_amount = 0;
 	            				if(shoppinglist.length > 0){
 	            					show_list();
@@ -55,6 +57,7 @@ artyom.addCommands([
 	            				arr_tmp = wildcard-1;
 	            				contextVar  = "quantityChange";
 	            				artyom.say("Ok index number " + wildcard + " choosed, now used quantity command");
+	            				history_string("Ok index number " + wildcard + " choosed, now used quantity command");
 	            			}
 	            			else if(contextVar == "offer"){
 	            				contextVar = "offerAdd";
@@ -62,6 +65,7 @@ artyom.addCommands([
 	            				var row = $('.'+wildcard).last();
 	            				console.log(row);
 	            				artyom.say("Okay, how much quantity?");
+	            				history_string("Okay, how much quantity?");
 	            			}
 	            			
 	            			
@@ -74,6 +78,7 @@ artyom.addCommands([
 	            	action:function(){
 	            		write("Change Quantity");
 	            		artyom.say("here is the list, use number command to choose the item");
+	            		history_string("Here is the list, use number command to choose the item.");
 	            		show_list();
 	            		contextVar = "changeQty";
 	            	}
@@ -106,10 +111,12 @@ artyom.addCommands([
 	            			if(check_bound(arr_tmp,wildcard)){
 	            				shoppinglist[arr_tmp][5] = wildcard;
 	            				artyom.say("Quantity changed to " + wildcard);
+	            				history_string("Quantity changed to " + wildcard);
 	            				show_list();
 	            			}
 	            			else{
 	            				artyom.say("Quantity cannot bec changed, as it acceds the available amount.");
+	            				history_string("Quantity cannot bec changed, as it acceds the available amount.");
 	            			}
 	            		}
 	            		else if(contextVar == "offerAdd"){
@@ -126,7 +133,8 @@ artyom.addCommands([
 	            				
 	            				write(sentence);
 	            				offer_item(index,id,images,text,price,mqa,wildcard);
-	            				artyom.say("Okay, offer added to list");	            			
+	            				artyom.say("Okay, offer added to list");	   
+	            				history_string("Okay, offer added to list");
 		            			show_offer_list();
 //	            			}
 //	            			else{
@@ -148,10 +156,12 @@ artyom.addCommands([
 	            		write("Delete List");
 	            		if(shoppinglist.length > 0){
 	            			artyom.say("Are you sure you want to delete this list?");
+	            			hisotry_string("Are you sure you want to delete this list?");
 	            			contextVar = "delete";
 	            		}
 	            		else{
 	            			artyom.say("list is already empty");
+	            			history_string("list is already empty");
 	            		}
 	            	}
 	            },
@@ -163,18 +173,19 @@ artyom.addCommands([
 	            			shoppinglist = [];
 	            			offer = [];
 	            			artyom.say("Okay deleted!");
-
+	            			history_string("Okay deleted!");
 	            		}
 	            		else if(i == 1 && contextVar == "delete"){
 	            			write("No");
 	            			artyom.say("Okay, continuoing with the same list");
+	            			history_string("Okay, continuoing with the same list");
 	            		}
 	            		else if (contextVar == "confirm"){
 	            			if(i == 0){
 	            				//console.log("name:"+name+" and token:"+token);
 	            				//console.log("shopping list: " + shoppinglist);
 	            				artyom.say("Okay, list is sent to the staff member! Once it is done I will notify you, until then explore our clothing section area");
-	            				
+	            				history_string("Okay, list is sent to the staff member! Once it is done I will notify you, until then explore our clothing section area");
 	            				for(var i = 0; i < shoppinglist.length; i++){
 	            					bill.push(shoppinglist[i][0]);
 	            					bill.push(shoppinglist[i][5]);
@@ -200,6 +211,7 @@ artyom.addCommands([
 	            			}
 	            			else{
 	            				artyom.say("Okay, let me know when you want to confirm the list.");
+	            				history_string("Okay, let me know when you want to confirm the list.");
 	            				
 	            			}
 	            		}
@@ -223,9 +235,11 @@ artyom.addCommands([
 	            		write("Remove item");
 	            		if(shoppinglist.length == 0){
             				artyom.say("You don't have added anything to your list yet!");
+            				history_string("You don't have added anything to your list yet!");
             			}
             			else{
             				artyom.say("Here is the list, use number command and say the index number of the item");
+            				history_string("Here is the list, use number command and say the index number of the item");
             				show_list();
             			}
 	            	}
@@ -237,9 +251,11 @@ artyom.addCommands([
 	            			//console.log("\n\n"+shoppinglist.length+"\n\n");
 	            			if(shoppinglist.length <= 0){
 	            				artyom.say("Okay! I am ready with my pen and paper. To add an item use add itemname command, to remove use remove index number of the item command. To coplete shopping use command confirm list.");
+	            				history_string("Okay! I am ready with my pen and paper. To add an item use add itemname command, to remove use remove index number of the item command. To coplete shopping use command confirm list.");
 	            			}
 	            			else{
 	            				artyom.say("Ya I am on it, tell me which thing to  add next! tell me! tell me! tell me!");
+	            				history_string("Ya I am on it, tell me which thing to  add next! tell me! tell me! tell me!");
 	            			}
 	            		}
 	            },
@@ -249,9 +265,11 @@ artyom.addCommands([
 	            			write("Show list");
 	            			if(shoppinglist.length == 0 && offer.length == 0){
 	            				artyom.say("You don't have added anything in your list to show yet!");
+	            				history_string("You don't have added anything in your list to show yet!");
 	            			}
 	            			else{
 	            				artyom.say("Here is the list");
+	            				history_string("Here is the list");
 	            				show_list();
 	            				show_offer_list();
 	            			}
@@ -262,6 +280,7 @@ artyom.addCommands([
 	            	action:function(){
 	            		write("Describe the project");
 	            		artyom.say("I am made from 76 point 1% Javascript and 23 point 9% Java thats what my github repository page says. I am listening your commands and talking with you through a javascript library called artyom dot js. It works on google's speech synthesis A P I, My front end part is made of simple JSP bootstrap and javascript and my backend part is made from Java technologies like java servlets JDBC and mysql the server connections are made through AJAX technology. My creators are Naren Bakshi and Siddharth Paliwal Students from Computer Engineering department, This project is made under the guidence of Professor Shivangi Surati, Ldrp I T R.");
+	            		history_string("I am made from 76.1% Javascript and 23.9% Java thats what my github repository page says. I am listening your commands and talking with you through a javascript library called artyom.js. It works on google's speech synthesis API, My front end part is made of simple JSP, bootstrap and javascript and my backend part is made from Java technologies like java servlets, JDBC and mysql the server connections are made through AJAX technology. My creators are Naren Bakshi and Siddharth Paliwal Students from Computer Engineering department, This project is made under the guidence of Professor Shivangi Surati, Ldrp-ITR.");
 	            	}
 	            },
 	            {
@@ -270,9 +289,11 @@ artyom.addCommands([
 	            		write("Confirm List");
 	            		if(shoppinglist.length == 0){
             				artyom.say("Your list is empty, add something to send it to staff!");
+            				history_string("Your list is empty, add something to send it to staff!");
             			}
             			else{
             				artyom.say("Are you sure you want to confirm the list? here is the list, use yes or no command");
+            				history_string("Are you sure you want to confirm the list? here is the list, use yes or no command");
             				contextVar = "confirm";
             				show_list();
             				show_offer_list();
@@ -326,6 +347,7 @@ function ajaxjax(item,type,quantity){
 			}
         	if(contextVar == "addById"){
         		artyom.say("how much quantity?");
+        		history_string("how much quantity?");
         		lastFound = ans_str;
         		//console.log(lastFound);
         	}
